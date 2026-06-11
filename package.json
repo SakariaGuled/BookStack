@@ -1,0 +1,30 @@
+{
+  "name": "bookstack",
+  "version": "1.0.0",
+  "description": "App that lets you save books for later",
+  "homepage": "https://github.com/SakariaGuled/BookStack#readme",
+  "bugs": {
+    "url": "https://github.com/SakariaGuled/BookStack/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SakariaGuled/BookStack.git"
+  },
+  "license": "MIT",
+  "author": "Sakaria Guled",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "express": "^5.2.1",
+    "pg": "^8.21.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14",
+    "prisma": "^7.8.0"
+  }
+}
