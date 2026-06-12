@@ -19,7 +19,7 @@ model User{
   username String @unique
   password String
   create DateTime @default(now())
-  updated DateTime
+  updated DateTime @updatedAt
 
   books Book[]
 }

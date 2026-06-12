@@ -1,8 +1,6 @@
 import { json } from "express";
 import { prisma } from "../../config/db.js";
-import { hashpassword } from "../services/authService.js";
-
-
+import { hashPassword } from "../services/authService.js";
 
 const register = async (req, res) => {
   try {
@@ -30,10 +28,9 @@ const register = async (req, res) => {
     // 4. Create user
     const user = await prisma.user.create({
       data: {
-        // ← Add data: key!
         name,
         username,
-        password: hashedPassword, // ← Correct field name
+        password: hashedPassword,
       },
     });
 
@@ -45,7 +42,6 @@ const register = async (req, res) => {
         name: user.name,
         username: user.username,
         createdAt: user.createdAt, // ← Correct field names
-        updatedAt: user.updatedAt,
       },
     });
   } catch (error) {
@@ -55,5 +51,3 @@ const register = async (req, res) => {
 };
 
 export { register };
-
-
