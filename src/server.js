@@ -1,6 +1,10 @@
-const PORT = process.env.PORT || 5001;
+import dotenv from "dotenv";
+dotenv.config(); 
+
 import express from "express";
 import { connectDB, disconnetDB } from "../config/db.js";
+
+const PORT = process.env.PORT || 5001;
 
 //import routes
 import bookRoter from "./routes/booksRouter.js";
@@ -10,12 +14,17 @@ connectDB();
 
 const app = express();
 
+//Body Parsing middleware
+app.use(express.json());
+//app.use(express.urlencoded({ extended: true }));
+
 //Api Routes
 app.use("/books", bookRoter);
 app.use("/auth", authRoutes);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`)
+    console.log("✅ DATABASE_URL loaded:", process.env.DATABASE_URL);;
 });
 
 // Handle unhandled promise rejections (e.g., database connection errors)

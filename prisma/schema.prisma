@@ -13,5 +13,45 @@ datasource db {
 
 }
 
+model User{
+  id Int @id @default(autoincrement())
+  name String
+  username String @unique
+  password String
+  create DateTime @default(now())
+  updated DateTime
+
+  books Book[]
+}
 
 
+model Book {
+  id   Int        @id @default(autoincrement())
+  userId                Int       
+  bookId                Int
+  rank                  Int        @default(99999)
+  readStatus            ReadStatus @default(NOT_READ)  // ← enum name capitalized
+  title                 String
+  imageUrl              String?
+  genres                String[]
+  authorNames           String     
+  description           String
+  pages                 Int?
+  releaseDate           Int       
+  series                String?
+  seriesNames           String?    
+  positionInSeries      Int?       
+  numberOfBooksInSeries Int?
+  contentWarnings       String[]   @default([])  
+  createdAt             DateTime   @default(now())  
+  updatedAt             DateTime   @updatedAt       
+  
+  // Relationship to User
+  user                  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum ReadStatus {
+  NOT_READ
+  READING
+  READ
+}
