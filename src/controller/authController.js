@@ -1,6 +1,10 @@
 import { json } from "express";
 import { prisma } from "../../config/db.js";
-import { hashPassword } from "../services/authService.js";
+import {
+  hashPassword,
+  isPasswordValid,
+  generateJWT,
+} from "../services/authService.js";
 
 const register = async (req, res) => {
   try {
@@ -34,6 +38,10 @@ const register = async (req, res) => {
       },
     });
 
+    //generate token
+    //generate JWTT Token
+    const token = generateJWT(userExists.id);
+
     // 5. Return response
     res.status(201).json({
       status: "success",
@@ -43,6 +51,7 @@ const register = async (req, res) => {
         username: user.username,
         createdAt: user.createdAt,
       },
+      token: token,
     });
   } catch (error) {
     console.error("Registration error:", error);
@@ -50,4 +59,35 @@ const register = async (req, res) => {
   }
 };
 
-export { register };
+const login = async (req, res) => {
+  const { username, password } = req.body;
+
+  // 2. Check if username exists
+  const userExists = await prisma.user.findUnique({
+    where: { username },
+  });
+  if (!userExists) {
+    return res.status(401).json({ error: "no user with this username" });
+  }
+
+  // verify password
+  const isUserValid = isPasswordValid(password, userExists);
+  if (!isUserValid) {
+    return res.status(401).json({ error: "Wrong Password" });
+  }
+
+  //generate JWTT Token
+  const token = generateJWT(userExists.id);
+
+  return res.status(200).json({
+    status: "success",
+    data: {
+      id: userExists.id,
+      username: userExists.username,
+      createdAt: userExists.createdAt,
+    },
+    token: token,
+  });
+};
+
+export { register, login };
