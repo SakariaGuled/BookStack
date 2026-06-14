@@ -4,6 +4,7 @@ import {
   hashPassword,
   isPasswordValid,
   generateJWT,
+  logout,
 } from "../services/authService.js";
 
 const register = async (req, res) => {
@@ -40,7 +41,7 @@ const register = async (req, res) => {
 
     //generate token
     //generate JWTT Token
-    const token = generateJWT(userExists.id);
+    const token = generateJWT(userExists.id, res);
 
     // 5. Return response
     res.status(201).json({
@@ -77,7 +78,7 @@ const login = async (req, res) => {
   }
 
   //generate JWTT Token
-  const token = generateJWT(userExists.id);
+  const token = generateJWT(userExists.id, res);
 
   return res.status(200).json({
     status: "success",
@@ -90,4 +91,17 @@ const login = async (req, res) => {
   });
 };
 
-export { register, login };
+const logoutController = async (req, res) => {
+  try {
+    logout(res); 
+
+    return res.status(200).json({
+      status: "success",
+      message: "Logged out successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export { register, login, logoutController };

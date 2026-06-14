@@ -15,7 +15,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/server.js"
+    "start": "nodemon src/server.js",
+    "seed:books": "node prisma/seedfile.js"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",
