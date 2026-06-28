@@ -1,4 +1,20 @@
+import { useState } from "react";
+import { getBooksByTitle } from "../requests/GetBooks";
+import type { bookSearchType } from "../types/bookSearchType";
+import SearchResult from "./SearchResult";
+
 export default function Search() {
+  const [searchValue, setSearchValue] = useState("");
+  const [results, setResults] = useState<bookSearchType[] | null>(null);
+  const [hasSearched, setHasSearched] = useState(false);
+
+  const handleSearch = async () => {
+    if (!searchValue.trim()) return;
+    const books = await getBooksByTitle(searchValue);
+    setResults(books);
+    setHasSearched(true);
+  };
+
   return (
     <>
       <style>{`
@@ -18,10 +34,15 @@ export default function Search() {
             <input
               type="text"
               placeholder="SEARCH"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
               className="bg-white focus:outline-none h-[80px] w-full text-black text-4xl text-center rounded-xl px-4"
             />
           </div>
         </div>
+
+        {hasSearched && <SearchResult results={results} />}
       </div>
     </>
   );
