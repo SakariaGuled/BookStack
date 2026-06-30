@@ -35,8 +35,8 @@ export const getBooksByTitle = async (
     }
 
     console.log(results);
-
     return results.data.search.results.hits.map((hit: any) => ({
+      id: hit.document.id,
       title: hit.document.title,
       image: hit.document.image?.url,
       author: hit.document.contributions[0]?.author.name,

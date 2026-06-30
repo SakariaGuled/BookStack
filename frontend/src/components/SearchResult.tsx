@@ -13,9 +13,12 @@ export default function SearchResult({ results }: Props) {
   return (
     <>
       <div>
-        <h1 className="pl-10 mb-10 text-gray-600 text-2xl"> RESULTS</h1>
+        <h1 className="pl-[25%] mb-10 mt-10 text-gray-600 text-2xl">
+          {" "}
+          RESULTS
+        </h1>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-[50%]  mx-auto px-4">
         {results.map((book, index) => (
           <BookCard key={index} book={book} />
         ))}
