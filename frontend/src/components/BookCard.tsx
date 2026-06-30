@@ -18,7 +18,7 @@ export default function BookCard({ book }: Props) {
         <h2 className="text-white text-lg font-semibold mt-3">{book.title}</h2>
         <p className="text-white/60 text-sm">{book.author}</p>
         <div className="flex justify-end mt-2">
-          <button className="text-white text-sm font-semibold text-center px-5 py-1 rounded-2xl  border-white/2 bg-white/2 backdrop-blur-md hover:bg-purple-500 onclick={() => console.log(`Added ${book.title} to library`)}>">
+          <button className="text-white text-sm font-semibold text-center px-5 py-1 rounded-lg  border-white/2 bg-white/2 backdrop-blur-md hover:bg-purple-500 onclick={() => console.log(`Added ${book.title} to library`)}>">
             Add
           </button>
         </div>

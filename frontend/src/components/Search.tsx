@@ -2,6 +2,7 @@ import { useState } from "react";
 import { getBooksByTitle } from "../requests/GetBooks";
 import type { bookSearchType } from "../types/bookSearchType";
 import SearchResult from "./SearchResult";
+import { useEffect } from "react";
 
 export default function Search() {
   const [searchValue, setSearchValue] = useState("");
@@ -13,7 +14,21 @@ export default function Search() {
     const books = await getBooksByTitle(searchValue);
     setResults(books);
     setHasSearched(true);
+    sessionStorage.setItem(
+      "lastSearch",
+      JSON.stringify({ searchValue, results: books, hasSearched: true }),
+    );
   };
+
+  useEffect(() => {
+    const saved = sessionStorage.getItem("lastSearch");
+    if (saved) {
+      const { searchValue, results, hasSearched } = JSON.parse(saved);
+      setSearchValue(searchValue);
+      setResults(results);
+      setHasSearched(hasSearched);
+    }
+  }, []);
 
   return (
     <>
