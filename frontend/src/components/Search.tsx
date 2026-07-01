@@ -38,10 +38,10 @@ export default function Search() {
         }
       `}</style>
       <div>
-        <h1 className="text-white text-4xl text-center mt-16">
+        <h1 className="text-white text-4xl lg:text-8xl text-center mt-[3rem]">
           Find your next favorite read
         </h1>
-        <h3 className="text-white text-xl text-center mt-4">
+        <h3 className="text-white text-xl lg:text-5xl text-center mt-[2rem]">
           Search millions of books and add them to your personal library
         </h3>
         <div className="relative rounded-2xl border border-white/10 h-[120px] w-[50%] mx-auto mt-16 bg-white/10 backdrop-blur-[10px]">

@@ -13,11 +13,11 @@ export default function SearchResult({ results }: Props) {
   return (
     <>
       <div>
-        <h1 className="pl-[10%] mb-10 mt-10 text-gray-600 text-2xl">RESULTS</h1>
+        <h1 className="pl-[20%] mb-10 mt-10 text-gray-600 text-2xl">RESULTS</h1>
       </div>
       <div
-        className="grid gap-4 max-w-7xl mx-auto px-4"
-        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))" }}
+        className="grid gap-5 max-w-7xl mx-auto px-4"
+        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}
       >
         {results.map((book, index) => (
           <BookCard key={index} book={book} />

@@ -1,4 +1,5 @@
 import type { bookSearchType } from "../types/bookSearchType";
+import noBookCover from "../assets/noBookCover.jpeg";
 
 export const getBooksByTitle = async (
   title: string,
@@ -14,7 +15,7 @@ export const getBooksByTitle = async (
       body: JSON.stringify({
         query: `
                     query SearchBook {
-                        search(query: "${title}", query_type: "books", per_page: 10, page: 1) {
+                        search(query: "${title}", query_type: "books", per_page: 20, page: 1) {
                             results
                         }
                     }
@@ -38,8 +39,8 @@ export const getBooksByTitle = async (
     return results.data.search.results.hits.map((hit: any) => ({
       id: hit.document.id,
       title: hit.document.title,
-      image: hit.document.image?.url,
-      author: hit.document.contributions[0]?.author.name,
+      image: hit.document.image?.url || noBookCover,
+      author: hit.document.contributions[0]?.author?.name || "Unknown Author",
     })) as bookSearchType[];
   } catch (error) {
     console.error("Failed to fetch books:", error);
